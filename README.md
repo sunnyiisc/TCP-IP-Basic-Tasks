@@ -86,3 +86,57 @@ The file "[mac_to_ip.sh](mac_to_ip.sh)" contains the bash code for finding ip ad
 corresponding to the mac address given by the user.
 
 -----------------------------------------------------------------------------
+
+## 4.	(Use any tool) send a gratuitous ARP with a spoofed IP and MAC address to some destination address in your subnet.
+
+### Ans:	
+###	'arping' is a tool that pings a given host:
+
+$arping -U -i enp3s0 <dst_addr> -S <spoof_ip_addr>
+
+-U is used for Unsolicited ARP is used to update the neighbours’ ARP caches
+-I sets the interface to the to the desired interface
+-S sets the spoof source ip address to any desired spoof-ip
+By this command we can set the spoof ip address corresponding to source mac address in the "dst_addr"'s arp table.
+This sends the gratious arp reply to "dst_addr".
+
+###	Note:
+enable "ip_nonlocalbind" and "ip_forward" by the following commands:
+
+$echo 1>/proc/sys/net/ipv4/ip_nonlocalbind
+
+$echo 1>/proc/sys/net/ipv4/ip_forward
+
+-----------------------------------------------------------------------------
+
+## 5.	Send an IP packet with the predefined identification number (12345) and design a precise tcpdump rule to capture only that packet.
+
+### Ans: 
+###	Sending an IP packet with predefined identification number (12345):
+		"-N 12345" sends the ip packet with identification number 12345
+
+$sudo hping3 -c 1 10.114.240.171 -N 12345
+
+###	Receiving the ip packet with the predefined identification number:
+		Identification number is defined at the 4th byte if packet and of length 2 byte
+
+$sudo tcpdump -i wlp2s0 'ip[4:2] == 12345'		
+
+-----------------------------------------------------------------------------
+
+## 6.	Send an IP packet with 10000 bytes payload to a chosen destination and design a precise tcpdump rule to capture all fragments of that particular IP packet.
+
+### Ans:	
+###	Sending an IP packet with data-size of 10000:
+		 setting '-d' to 10000 to set the data-size and setting the id to 54321 to capture the packet by tcpdump	
+			
+$sudo hping3 -c 1 10.114.240.171 -N 54321 -d 10000
+
+###	Receiving the ip packet with the predefined identification number:
+		Since, MTU of the wlan interface is 1500 hence the payload will be distributed among 
+		"10000/(1500-40)" i.e 7 fragments.
+		Identification number is defined at the 4th byte if packet and of length 2 byte which will remain same
+		for every fragment that will be created
+		hence, we can capture all the fragments by the identification number.
+
+$sudo tcpdump -i wlp2s0 'ip[4:2] == 54321'		
