@@ -92,7 +92,9 @@ corresponding to the mac address given by the user.
 ### Ans:	
 ###	'arping' is a tool that pings a given host:
 
+```bash
 $arping -U -i enp3s0 <dst_addr> -S <spoof_ip_addr>
+```
 
 -U is used for Unsolicited ARP is used to update the neighbours’ ARP caches
 -I sets the interface to the to the desired interface
@@ -103,9 +105,10 @@ This sends the gratious arp reply to "dst_addr".
 ###	Note:
 enable "ip_nonlocalbind" and "ip_forward" by the following commands:
 
+```bash
 $echo 1>/proc/sys/net/ipv4/ip_nonlocalbind
-
 $echo 1>/proc/sys/net/ipv4/ip_forward
+```
 
 -----------------------------------------------------------------------------
 
@@ -115,12 +118,16 @@ $echo 1>/proc/sys/net/ipv4/ip_forward
 ###	Sending an IP packet with predefined identification number (12345):
 		"-N 12345" sends the ip packet with identification number 12345
 
+```bash
 $sudo hping3 -c 1 10.114.240.171 -N 12345
+```
 
 ###	Receiving the ip packet with the predefined identification number:
 		Identification number is defined at the 4th byte if packet and of length 2 byte
 
+```bash
 $sudo tcpdump -i wlp2s0 'ip[4:2] == 12345'		
+```
 
 -----------------------------------------------------------------------------
 
@@ -129,8 +136,10 @@ $sudo tcpdump -i wlp2s0 'ip[4:2] == 12345'
 ### Ans:	
 ###	Sending an IP packet with data-size of 10000:
 		 setting '-d' to 10000 to set the data-size and setting the id to 54321 to capture the packet by tcpdump	
-			
+
+```bash
 $sudo hping3 -c 1 10.114.240.171 -N 54321 -d 10000
+```
 
 ###	Receiving the ip packet with the predefined identification number:
 		Since, MTU of the wlan interface is 1500 hence the payload will be distributed among 
@@ -139,4 +148,6 @@ $sudo hping3 -c 1 10.114.240.171 -N 54321 -d 10000
 		for every fragment that will be created
 		hence, we can capture all the fragments by the identification number.
 
+```bash
 $sudo tcpdump -i wlp2s0 'ip[4:2] == 54321'		
+```
