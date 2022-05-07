@@ -1,6 +1,6 @@
 # TCP-IP-Basic-Tasks
 
-##1.	Display network interface details using ifconfig and iproute2.
+## 1.	Display network interface details using ifconfig and iproute2.
 ### Ans:
 ###	ifconfig:
 	
@@ -57,7 +57,7 @@ wlp2s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 
 ------------------------------------------------------------------------------
 
-##2.	A host in a wired network with net-id 10.114.x.x and 16bit subnet mask needs to communicate with a host in a wireless network with net-id 10.114.240.x and 24 bit subnet mask. Do you need any additional entry in the default routing table?
+## 2.	A host in a wired network with net-id 10.114.x.x and 16bit subnet mask needs to communicate with a host in a wireless network with net-id 10.114.240.x and 24 bit subnet mask. Do you need any additional entry in the default routing table?
 ### Ans:
 	1st host (wired)    : net-id - 10.114.x.x and 16bit subnetmask 
 						(i.e 255.255.0.0)
@@ -81,7 +81,7 @@ wlp2s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 
 ------------------------------------------------------------------------------
 
-##3. Write a bash script to find the IP address of a machine given its MAC address
+## 3. Write a bash script to find the IP address of a machine given its MAC address
 ### Ans:
 	The file "[mac_to_ip.sh](mac_to_ip.sh)" contains the bash code for finding ip address 
 	corresponding to the mac address given by the user.
